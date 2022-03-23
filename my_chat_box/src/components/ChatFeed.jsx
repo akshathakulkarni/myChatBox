@@ -10,15 +10,15 @@ const ChatFeed = (props) => {
     const keys = Object.keys(messages); //gives the ids of all messages
     const key = keys.map((key, index) => {
       const message = messages[key];
-      const lastMessage = index === 0 ? null : keys[index - 1]; 
+      const lastMessageKey = index === 0 ? null : keys[index - 1]; 
       const isMyMessage = userName === message.sender.userName; 
       return (
         <div key={`msg_${index}`}>
           <div className="message-block">
             {
               isMyMessage 
-              ? <MyMessage />
-              : <TheirMessage />
+              ? <MyMessage message={message}/>
+              : <TheirMessage message={message} lastMessage={messages[lastMessageKey]}/>
             }
           </div>
           <div className="read-receipts" style={{marginRight: isMyMessage ? '18px' : '0px', marginLeft: isMyMessage ? '0px' : '68px'}}>
